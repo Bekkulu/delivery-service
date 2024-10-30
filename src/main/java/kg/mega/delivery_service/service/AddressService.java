@@ -8,6 +8,8 @@ import kg.mega.delivery_service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AddressService {
@@ -16,19 +18,19 @@ public class AddressService {
     private final ParcelRepository parcelRepository;
     private final CourierRepository courierRepository;
 
+
     public void createAddress(Address address) {
-        try{
+        try {
             addressRepository.save(address);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     public Address getAddress(Long id) {
         try {
             addressRepository.findById(id).orElseThrow();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return addressRepository.getById(id);
@@ -37,15 +39,12 @@ public class AddressService {
     public void deleteAddress(Long id) {
         try {
             addressRepository.deleteById(id);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-
-
-
-
-
+    public List<Address> getAddressesByUserId(long id) {
+        return addressRepository.findByUserId(id);
+    }
 }

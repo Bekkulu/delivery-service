@@ -23,6 +23,7 @@ public class User {
     private String phone;
     @Column(nullable = false)
     private Role role;
+    @Column(nullable = false)
 
     @OneToMany(mappedBy = "user")
     private Set<Parcel> parcels;
