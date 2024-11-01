@@ -4,6 +4,9 @@ import kg.mega.delivery_service.exceptions.UserNotFoundException;
 import kg.mega.delivery_service.model.entity.User;
 import kg.mega.delivery_service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,7 +14,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
 
     public User getUser(Long id) {
@@ -25,7 +28,7 @@ public class UserService {
         }
     }
 
-    public List<User> getAllUsers(String filter) {
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
@@ -45,6 +48,11 @@ public class UserService {
         user1.setEmail(user.getEmail());
         user1.setPhone(user.getPhone());
         userRepository.save(user1);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username);
     }
 
 }
