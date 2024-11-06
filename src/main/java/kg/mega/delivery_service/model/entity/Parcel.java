@@ -2,35 +2,38 @@ package kg.mega.delivery_service.model.entity;
 
 import jakarta.persistence.*;
 import kg.mega.delivery_service.enums.ParcelStatus;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+
 @Entity
 @Table(name = "parcels")
-
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Parcel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column (nullable = false)
-    private Long id;
-    @Column (nullable = false)
-    private ParcelStatus status;
-    @DateTimeFormat (pattern = "yyyy-MM-dd HH:mm")
-    @Column (nullable = false)
-    private Date beginDate;
-    @Column (nullable = false)
-    private Long pickupAddressId;
-    @Column (nullable = false)
-    private Long deliveryAddressId;
-    @Column (nullable = false)
-    private Float weight;
+    @Column(nullable = false)
+    Long id;
+    @Column(nullable = false)
+    ParcelStatus status;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @Column(nullable = false)
+    Date beginDate;
+    @Column(nullable = false)
+    Long pickupAddressId;
+    @Column(nullable = false)
+    Long deliveryAddressId;
+    @Column(nullable = false)
+    Float weight;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn (name = "user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn (name = "courier_id")
+    @JoinColumn(name = "courier_id")
     private Courier courier;
 
     public Courier getCourier() {
@@ -107,7 +110,7 @@ public class Parcel {
         this.weight = weight;
     }
 
-    public Parcel( ParcelStatus status, Date beginDate, Long pickupAddressId, Long deliveryAddressId, Float weight, User user) {
+    public Parcel(ParcelStatus status, Date beginDate, Long pickupAddressId, Long deliveryAddressId, Float weight, User user) {
         this.status = status;
         this.beginDate = beginDate;
         this.pickupAddressId = pickupAddressId;
@@ -116,5 +119,8 @@ public class Parcel {
         this.user = user;
     }
 
-    public Parcel() {};
+    public Parcel() {
+    }
+
+    ;
 }
