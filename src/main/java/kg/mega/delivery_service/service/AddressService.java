@@ -6,6 +6,7 @@ import kg.mega.delivery_service.repository.CourierRepository;
 import kg.mega.delivery_service.repository.ParcelRepository;
 import kg.mega.delivery_service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

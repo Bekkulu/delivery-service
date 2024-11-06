@@ -1,25 +1,29 @@
 package kg.mega.delivery_service.model.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 
 import java.util.Set;
 
 @Entity
 @Table(name = "couriers")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Courier {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
-    private Long id;
+    Long id;
     @Column(nullable = false)
-    private String userName;
+    String userName;
     @Column(nullable = false)
-    private String email;
+    String email;
     @Column(nullable = false)
-    private String phone;
+    String phone;
 
     @OneToMany(mappedBy = "courier")
-    private Set<Parcel> parcels;
+    Set<Parcel> parcels;
 
     public Set<Parcel> getParcels() {
         return parcels;
@@ -74,5 +78,8 @@ public class Courier {
         this.parcels = parcels;
     }
 
-    public Courier() {};
+    public Courier() {
+    }
+
+    ;
 }

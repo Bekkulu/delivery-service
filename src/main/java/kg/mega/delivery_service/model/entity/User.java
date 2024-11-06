@@ -2,37 +2,36 @@ package kg.mega.delivery_service.model.entity;
 
 import jakarta.persistence.*;
 import kg.mega.delivery_service.enums.Role;
-import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.experimental.FieldDefaults;
 
-import java.util.Collection;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity
 @Data
 @Table(name = "users")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
-    private Long id;
+    Long id;
     @Column(nullable = false)
-    private String username;
+    String username;
     @Column(nullable = false, unique = true)
-    private String email;
+    String email;
     @Column(nullable = false)
-    private String password;
+    String password;
     @Column(nullable = false)
-    private String phone;
+    String phone;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private Role role;
+    Role role;
     @Column(nullable = false)
     @OneToMany(mappedBy = "user")
-    private Set<Parcel> parcels;
+    Set<Parcel> parcels;
 
 
 }

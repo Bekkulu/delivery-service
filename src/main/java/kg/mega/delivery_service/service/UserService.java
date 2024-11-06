@@ -2,6 +2,8 @@ package kg.mega.delivery_service.service;
 
 import kg.mega.delivery_service.exceptions.UserNotFoundException;
 import kg.mega.delivery_service.model.entity.User;
+import kg.mega.delivery_service.model.requests.UserLoginRequest;
+import kg.mega.delivery_service.model.responses.UserLoginResponse;
 import kg.mega.delivery_service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -55,4 +57,7 @@ public class UserService implements UserDetailsService {
         return userRepository.findByUsername(username);
     }
 
+    public UserLoginResponse loginUser(UserLoginRequest userLoginRequest) {
+        return null;
+    }
 }

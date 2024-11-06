@@ -1,28 +1,31 @@
 package kg.mega.delivery_service.model.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 
 @Entity
 @Table(name = "addresses")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    Long id;
     @Column(nullable = false)
-    private String street;
+    String street;
     @Column(nullable = false)
-    private String city;
+    String city;
     @Column(nullable = false)
-    private String houseNumber;
+    String houseNumber;
     @Column(nullable = false)
-    private String postalCode;
+    String postalCode;
     @Column(nullable = false)
-    private String apartment;
+    String apartment;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
+    User user;
 
     public User getUser() {
         return user;
@@ -98,5 +101,8 @@ public class Address {
         this.user = user;
     }
 
-    public Address() {};
+    public Address() {
+    }
+
+    ;
 }
