@@ -1,18 +1,22 @@
 package kg.mega.delivery_service.model.entity;
 
 import jakarta.persistence.*;
-import kg.mega.delivery_service.enums.Role;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Data
 @Table(name = "users")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,12 +30,20 @@ public class User {
     String password;
     @Column(nullable = false)
     String phone;
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    Role role;
+    @ManyToOne
+    @JoinColumn(name = "roles_id")
+    private Role role;
     @Column(nullable = false)
     @OneToMany(mappedBy = "user")
     Set<Parcel> parcels;
 
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return role
+                .getPermission()
+                .stream()
+                .map(authority -> new SimpleGrantedAuthority(authority.getPermissionName()))
+                .collect(Collectors.toList());
+    }
 }

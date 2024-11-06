@@ -41,6 +41,7 @@ public class UserService implements UserDetailsService {
             e.printStackTrace();
         }
     }
+
     public void createUser(User user) {
         userRepository.save(user);
     }
@@ -58,6 +59,6 @@ public class UserService implements UserDetailsService {
     }
 
     public UserLoginResponse loginUser(UserLoginRequest userLoginRequest) {
-        return ;
+        return null;
     }
 }
